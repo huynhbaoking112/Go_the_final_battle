@@ -1,4 +1,5 @@
-module github.com/huynhbaoking112/Go_the_final_battle
+// module github.com/huynhbaoking112/Go_the_final_battle
+module king
 
 go 1.23.4
 
