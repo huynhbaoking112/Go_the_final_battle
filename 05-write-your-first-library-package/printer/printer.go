@@ -1,9 +1,9 @@
-package main
+package printer
 
 import "fmt"
 
 // Hello is an exported function
 
-func main() {
+func Hello() {
 	fmt.Println("Hello - King")
 }
