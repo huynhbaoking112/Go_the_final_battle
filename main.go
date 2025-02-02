@@ -2,43 +2,55 @@ package main
 
 import "fmt"
 
+// STORY:
+// You want to compare two bookcases,
+// whether they're equal or not.
+
 func main() {
-	var (
-		planet   = "venus"
-		distance = 261
-		orbital  = 224.701
-		hasLife  = false
+	type (
+		// integer int
+
+		bookcase [5]int
+		cabinet  [5]int
+		//          ^- try changing this to: integer
+		//             but first: uncomment the integer type above
 	)
 
-	// swiss army knife %v verb
-	fmt.Printf("Planet: %v\n", planet)
-	fmt.Printf("Distance: %v millions kms\n", distance)
-	fmt.Printf("Orbital Period: %v days\n", orbital)
-	fmt.Printf("Does %v have life? %v\n", planet, hasLife)
+	blue := bookcase{6, 9, 3, 2, 1}
+	red := cabinet{6, 9, 3, 2, 1}
 
-	// argument indexing - indexes start from 1
-	fmt.Printf(
-		"%v is %v away. Think! %[2]v kms! %[1]v OMG.\n",
-		planet, distance,
-	)
+	fmt.Print("Are they equal? ")
 
-	// why use other verbs than? because: type-safety
-	// uncomment to see the warnings:
+	if cabinet(blue) == red {
+		fmt.Println("✅")
+	} else {
+		fmt.Println("❌")
+	}
+
+	fmt.Printf("blue: %#v\n", blue)
+	fmt.Printf("red : %#v\n", bookcase(red))
+
+	// ------------------------------------------------
+	// The underlying type of an unnamed type is itself.
 	//
-	// fmt.Printf("Planet: %d\n", planet)
-	// fmt.Printf("Distance: %s millions kms\n", distance)
-	// fmt.Printf("Orbital Period: %t days\n", orbital)
-	// fmt.Printf("Does %v has life? %f\n", planet, hasLife)
+	//   [5]integer's underlying type: [5]integer
+	//   [5]int's underlying type    : [5]int
+	//
+	//   > [5]integer and [5]int are different types.
+	//   > Their memory layout is not important.
+	//   > Their types are not the same.
 
-	// correct verbs:
-	// fmt.Printf("Planet: %s\n", planet)
-	// fmt.Printf("Distance: %d millions kms\n", distance)
-	// fmt.Printf("Orbital Period: %f days\n", orbital)
-	// fmt.Printf("Does %s has life? %t\n", planet, hasLife)
+	// _ = [5]integer{} == [5]int{}
 
-	// precision
-	fmt.Printf("Orbital Period: %f days\n", orbital)
-	fmt.Printf("Orbital Period: %.0f days\n", orbital)
-	fmt.Printf("Orbital Period: %.1f days\n", orbital)
-	fmt.Printf("Orbital Period: %.2f days\n", orbital)
+	// ------------------------------------------------
+	// An unnamed and a named type can be compared,
+	// if they've identical underlying types.
+	//
+	//   [5]integer's underlying type: [5]integer
+	//   cabinet's underlying type   : [5]integer
+	//
+	// Note: Assuming the cabinet's type definition is like so:
+	//       type cabinet [5]integer
+
+	// _ = [5]integer{} == cabinet{}
 }
