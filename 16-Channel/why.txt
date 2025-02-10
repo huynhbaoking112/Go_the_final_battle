@@ -1,0 +1,92 @@
+🔍 Channel trong Go là gì?
+Trong Go, channel là một cơ chế giúp giao tiếp giữa các goroutine một cách an toàn.
+Nó giống như một đường ống (pipe) mà một goroutine có thể gửi dữ liệu vào và goroutine khác có thể nhận dữ liệu từ đó.
+
+🛠 Cách tạo channel
+go
+Sao chép
+Chỉnh sửa
+ch := make(chan int) // Tạo một channel chứa kiểu int
+ch là một channel truyền dữ liệu kiểu int.
+Mặc định, channel sẽ chặn nếu không có goroutine nào nhận dữ liệu.
+🚀 Ví dụ 1: Gửi & Nhận dữ liệu với channel
+go
+Sao chép
+Chỉnh sửa
+package main
+
+import (
+	"fmt"
+)
+
+func main() {
+	ch := make(chan string) // 📡 Tạo một channel kiểu string
+
+	go func() {
+		ch <- "Hello from goroutine!" // 🚀 Gửi dữ liệu vào channel
+	}()
+
+	message := <-ch // ⏳ Nhận dữ liệu từ channel
+	fmt.Println(message) // ✅ In ra: Hello from goroutine!
+}
+🔍 Giải thích
+1️⃣ make(chan string) → Tạo channel ch để truyền dữ liệu kiểu string.
+2️⃣ go func() { ch <- "Hello from goroutine!" }() → Goroutine gửi "Hello from goroutine!" vào channel.
+3️⃣ message := <-ch → Main goroutine bị chặn tại đây, đợi đến khi nhận được dữ liệu từ channel.
+4️⃣ Khi nhận được dữ liệu, chương trình tiếp tục và in ra "Hello from goroutine!".
+
+🔥 Channel giúp tránh lỗi race condition
+Nếu bạn chạy nhiều goroutine mà không có channel, các goroutine có thể chạy lẫn lộn và gây lỗi race condition.
+
+❌ Không dùng channel → Race Condition
+go
+Sao chép
+Chỉnh sửa
+package main
+
+import (
+	"fmt"
+	"time"
+)
+
+var msg string
+
+func main() {
+	go func() {
+		msg = "Hello World"
+	}()
+	time.Sleep(1 * time.Second) // ⏳ Chờ nhưng không đảm bảo dữ liệu an toàn
+	fmt.Println(msg) // ❌ Có thể in ra chuỗi rỗng!
+}
+💥 Lỗi tiềm ẩn:
+
+Goroutine chưa chắc đã hoàn thành trước khi fmt.Println(msg) chạy.
+Kết quả có thể là chuỗi rỗng hoặc giá trị sai.
+✅ Dùng channel để đồng bộ
+go
+Sao chép
+Chỉnh sửa
+package main
+
+import (
+	"fmt"
+)
+
+func main() {
+	ch := make(chan string) // 📡 Channel kiểu string
+
+	go func() {
+		ch <- "Hello World" // 🚀 Gửi dữ liệu vào channel
+	}()
+
+	fmt.Println(<-ch) // ⏳ Chờ nhận dữ liệu từ channel trước khi tiếp tục
+}
+🔹 Khi dùng channel, main goroutine luôn đợi đến khi goroutine khác gửi dữ liệu, tránh lỗi race condition.
+
+🎯 Tóm tắt
+✅ Channel giúp goroutine giao tiếp an toàn.
+✅ Gửi dữ liệu bằng channel <- value.
+✅ Nhận dữ liệu bằng value := <-channel.
+✅ Channel mặc định là blocking, giúp đồng bộ goroutine.
+
+💡 Bạn có thể thử xóa <-ch trong ví dụ trên và xem chuyện gì xảy ra! 🚀

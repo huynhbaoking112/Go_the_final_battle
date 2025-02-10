@@ -1,0 +1,8 @@
+suự khác biệt giữa [...]placeholder và  []placeholder 
+khi gọi function nó tạo 1 hay nhiều instance  
+
+cách dùng map, array với var 
+
+
+func New(opts ...OptionFunc) *Engine {
+	debugPrintWARNINGNew()
