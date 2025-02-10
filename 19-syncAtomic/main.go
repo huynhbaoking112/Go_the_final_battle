@@ -1,34 +1,37 @@
 package main
 
 import (
-	"fmt"
-	"sync"
 	"sync/atomic"
+	"time"
 )
 
-var value int64
-
-func work(m *sync.WaitGroup) {
-
-	defer m.Done()
-	var i int64
-	for i = 0; i <= 100; i++ {
-		atomic.AddInt64(&value, i)
-	}
-
+func loadConfig() map[string]string {
+	return make(map[string]string)
 }
-
+func requests() chan int {
+	return make(chan int)
+}
 func main() {
-
-	var wg sync.WaitGroup
-
-	wg.Add(2)
-
-	work(&wg)
-	work(&wg)
-
-	wg.Wait()
-
-	fmt.Println("ket thuc", value)
-
+	//	nắm	giữ	thông	tin	cấu	hình	của	server
+	var config atomic.Value
+	//	khởi	tạo	giá	trị	ban	đầu
+	config.Store(loadConfig())
+	go func() {
+		//	cập	nhật	thông	tin	sau	mỗi	10	giây
+		for {
+			time.Sleep(10 * time.Second)
+			config.Store(loadConfig())
+		}
+	}()
+	//	tạo	nhiều	worker	sử	lý	request
+	//	dùng	thông	tin	cấu	hình	gần	nhất
+	for i := 0; i < 10; i++ {
+		go func() {
+			for r := range requests() {
+				c := config.Load()
+				//	xử	lý	request	với	cấu	hình	c
+				_, _ = r, c
+			}
+		}()
+	}
 }
