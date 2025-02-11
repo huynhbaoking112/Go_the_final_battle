@@ -1,0 +1,19 @@
+🛠 Giải thích recover() trong Go
+📌 1️⃣ recover() là gì?
+recover() là một built-in function trong Go.
+Dùng để bắt lại (handle) panic trong một Goroutine.
+Nếu có panic xảy ra trong Goroutine, recover() giúp chương trình không bị crash mà có thể xử lý lỗi và tiếp tục chạy.
+🛠 2️⃣ recover() hoạt động thế nào?
+recover() chỉ hoạt động nếu được gọi trong defer function.
+Khi panic xảy ra, chương trình sẽ dừng thực thi và chạy tất cả defer functions.
+Nếu recover() được gọi trong defer, nó sẽ bắt lại panic và trả về giá trị của panic, giúp chương trình tiếp tục chạy thay vì dừng đột ngột.
+
+
+
+5️⃣ Khi nào nên dùng recover()?
+✅ Bắt lỗi trong server hoặc API handler: Tránh chương trình crash toàn bộ nếu một request gặp lỗi.
+✅ Trong Goroutine: Nếu Goroutine bị panic, có thể recover lại để tiếp tục chạy các phần khác của chương trình.
+✅ Trong Parser hoặc Validator: Giống như code của bạn, nếu JSON parser gặp lỗi, có thể trả về lỗi thay vì crash chương trình.
+❌ 6️⃣ Khi nào KHÔNG nên dùng recover()?
+❌ Không dùng để che giấu lỗi nghiêm trọng: Nếu có lỗi logic quan trọng, tốt hơn là fix lỗi thay vì dùng recover() để bỏ qua nó.
+❌ Không dùng recover() bên ngoài defer: recover() chỉ có tác dụng trong defer, nếu gọi ở nơi khác sẽ không có hiệu quả.
