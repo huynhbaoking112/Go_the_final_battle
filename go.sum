@@ -1,3 +1,5 @@
+github.com/chai2010/errors v0.0.0-20200705094421-c57ad8baa2b0 h1:lYpQzwEQrEsz8+m4mKQxKXVVb1Ef/cd7HReEMXAvu6Y=
+github.com/chai2010/errors v0.0.0-20200705094421-c57ad8baa2b0/go.mod h1:wjFXr0DgwZCfXrW1fjFyR8BMmJnGT8xnU02gc+H7hpk=
 github.com/fatih/color v1.10.0/go.mod h1:ELkj/draVOlAH/xkhN6mQ50Qd0MPOk5AAr3maGEBuJM=
 github.com/fatih/color v1.18.0 h1:S8gINlzdQ840/4pfAwic/ZE0djQEH3wM94VfqLTZcOM=
 github.com/fatih/color v1.18.0/go.mod h1:4FelSpRwEGDpQ12mAdzqdOukCy4u8WUtOY6lkT/6HfU=
