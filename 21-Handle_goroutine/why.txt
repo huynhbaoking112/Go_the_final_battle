@@ -1,0 +1,3 @@
+ Goroutine	là	một	tính	năng	mạnh	mẽ	của	Go,	mất	chi	phí	rất	ít	để	sử	dụng,	những	tất	nhiên	nếu	dùng	với	số	lượng
+ quá	lớn	sẽ	chiếm	gây	nhiều	lãng	phí	và	cần	có	một	cơ	chế	để	kiểm	soát.	Một	cách	thông	dụng	để	đạt	được	mục	đích
+ trên	là	dùng	worker	pool
