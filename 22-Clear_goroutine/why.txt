@@ -1,0 +1,3 @@
+Sau	khi	job	queue	rỗng,	ta	sẽ	phải	dừng	tất	cả	worker.	Goroutine	dù	khá	nhẹ	nhưng	vẫn	không	phải	miễn	phí,	nhất	là
+ với	các	hệ	thống	lớn,	dù	chỉ	là	các	chi	phí	nhỏ	nhất	cũng	có	thể	trở	nên	khác	biệt	lớn	nếu	thay	đổi.
+ Cách	đơn	giản	là	dùng	kill	channel	để	phát	ra	tín	hiệu	ngừng	cho	goroutine
