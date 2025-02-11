@@ -19,8 +19,15 @@ func (p *HelloService) Hello(request string, reply *string) error {
 	return nil
 }
 func main() {
+	// đăng ký một dịch vụ RPC với tên "HelloService" để cho phép client gọi từ xa
+
+	// new(HelloService) Tạo một con trỏ đến một struct mới của HelloService tương đương với &HelloService{}
+
+	// Điều này cần thiết vì trong Go, RPC yêu cầu service phải có các phương thức (method) có receiver là con trỏ (ví dụ: func (p *HelloService) Hello(...))
+
 	rpc.RegisterName("HelloService", new(HelloService))
 	//	chạy	rpc	server	trên	port	1234
+	// Mở một socket TCP trên PORT 1234, để chương trình có thể lắng nghe (listen) các kết nối từ client
 	listener, err := net.Listen("tcp", ":1234")
 	//	nếu	có	lỗi	thì	in	ra
 	if err != nil {
